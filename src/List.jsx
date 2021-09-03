@@ -13,6 +13,25 @@ class List extends React.Component {
         });
     };
 
+    //был первый раз отображен, был внедрен в страницу
+    componentDidMount() {
+        console.log('COMPONENT WAS DISPLAYED');
+    };
+
+    //компонент произвел обновления, у него изменился props или state
+    componentDidUpdate(prevProps, prevState) {
+        console.log(prevProps, prevState, this.props, this.state);
+        if (this.state.numbers !== prevState.numbers.length) {
+            console.log("COMPONENT UPDATED!!");
+        }
+    };
+
+    //до того, как компонент будет удален со страницы, я могу что-то сделать
+    //допустим, до того как К.удалится например отправить запрос на сервер..(все что угодно)
+    componentWillUnmount() {
+        console.log("COMPONENT WILL BE DELETED")
+    };
+
     render() {
         return (
             <div>
@@ -21,7 +40,7 @@ class List extends React.Component {
                         <li key={index}>{num}</li>
                     ))}
                 </ul>
-                <button onClick={this.addRandomNumber}>Новое число</button>
+                <button onClick={this.addRandomNumber}>NEW NUMBER</button>
             </div>
         );
     }

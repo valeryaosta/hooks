@@ -3,10 +3,16 @@ import List from "./List";
 
 function App() {
 
+    const [visibleList, setVisibleList] = useState(true);
+
+    const toggleVisibleList = () => {
+        setVisibleList(visible => !visible);
+    };
 
     return (
         <div className="App">
-          <List />
+            {visibleList && <List/>}
+            <button onClick={toggleVisibleList}>SHOW/HIDE</button>
         </div>
     );
 }
