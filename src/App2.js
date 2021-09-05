@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, {useEffect, useState, useRef, useCallback} from "react";
 import "./index.css";
 
 function App2() {
@@ -6,15 +6,20 @@ function App2() {
     const [numbers, setNumbers] = useState([1, 2, 3, 4, 5]);
     //ссылка на ДОМ элемент внутри переменной ulRef
     const ulRef = useRef();
+    const numbersRef = useRef();
+
+    //при каждом реденере прикручивай в current это новое значение, кот хранится в numbers
+    numbersRef.current = numbers;
+
 
     const addNumber = () => {
         const lastNumber = numbers[numbers.length - 1];
         setNumbers([...numbers, lastNumber + 1]);
     };
 
-    const handleScroll = () => {
-        console.log('Был скролл');
-    };
+    const handleScroll = useCallback(() => {
+        console.log('Был скролл', numbersRef.current);
+    }, []);
 
     useEffect(() => {
         //ulElem.document.querySelector('ul');
@@ -79,3 +84,5 @@ export function App3() {
         </div>
     );
 }
+
+//useCallback - следит нужно ли пересоздавать функцию
